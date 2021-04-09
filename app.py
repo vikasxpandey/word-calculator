@@ -4,13 +4,18 @@ from vectors import words, closest_word
 
 app = flask.Flask(__name__)
 
+@app.route('/', methods=['GET'])
+def test():
+    return "It's Live"
+    
 @app.route('/', methods=['POST'])
 def home():
-    
     return jsonify(
             {
                 "result": closest_word(words[request.json['root']] - words[request.json['subtract']] + words[request.json['add']])
             }
         )
 
-app.run()
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))
+    app.run(port=port)
