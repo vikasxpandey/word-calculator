@@ -1,13 +1,14 @@
 import flask
 from flask import request, jsonify
 from vectors import words, closest_word
+import os
 
 app = flask.Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def test():
     return "It's Live"
-    
+
 @app.route('/', methods=['POST'])
 def home():
     return jsonify(
