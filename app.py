@@ -5,17 +5,15 @@ import os
 
 app = flask.Flask(__name__)
 
-@app.route('/', methods=['GET'])
-def test():
-    return "It's Live"
-
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['GET', 'POST'])
 def home():
-    return jsonify(
-            {
-                "result": closest_word(words[request.json['root']] - words[request.json['subtract']] + words[request.json['add']])
-            }
-        )
+    if request.method == 'POST':
+        return jsonify(
+                {
+                    "result": closest_word(words[request.json['root']] - words[request.json['subtract']] + words[request.json['add']])
+                }
+            )
+    return "It's Live"
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
