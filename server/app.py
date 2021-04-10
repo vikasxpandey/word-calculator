@@ -1,11 +1,15 @@
 import flask
 from flask import request, jsonify
+from flask_cors import CORS, cross_origin
 from vectors import words, closest_word
 import os
 
 app = flask.Flask(__name__)
+app.config['CORS_HEADERS'] = 'Content-Type'
+cors = CORS(app)
 
 @app.route('/', methods=['GET', 'POST'])
+@cross_origin()
 def home():
     if request.method == 'POST':
         return jsonify(
