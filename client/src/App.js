@@ -5,9 +5,11 @@ const App = () => {
 	const [subtract, setSubtract] = useState('')
 	const [add, setAdd] = useState('')
 	const [loading, setLoading] = useState(false)
+	const [answer, setAnswer] = useState('')
 
 	const getResult = async (root, subtract, add) => {
 		setLoading(true)
+		setAnswer('')
 
 		let myHeaders = new Headers()
 		myHeaders.append('Content-Type', 'application/json')
@@ -32,11 +34,11 @@ const App = () => {
 			const result = await response.json()
 			console.log(result)
 			setLoading(false)
-			return result
+			setAnswer(result.result)
 		} catch (error) {
 			console.log(error)
 			setLoading(false)
-			return {}
+			setAnswer('An Error Occurred :(')
 		}
 	}
 
@@ -90,6 +92,9 @@ const App = () => {
 					>
 						{loading ? 'Please Wait...' : 'Calculate'}
 					</button>
+				</div>
+				<div className='mt-5 text-center'>
+					<h2>{answer ?? ''}</h2>
 				</div>
 			</main>
 		</>
